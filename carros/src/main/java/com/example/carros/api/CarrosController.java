@@ -35,6 +35,13 @@ public class CarrosController {
 
         return "Carro salvo com sucesso: " + c.getId();
     }
+
+    @PutMapping("/{id}")
+    public String put(@PathVariable("id") Long id, @RequestBody Carro carro) {
+        Carro c = service.update(carro, id);
+
+        return "Carro atualizado com sucesso: " + c.getId();
+    }
 }
 
 

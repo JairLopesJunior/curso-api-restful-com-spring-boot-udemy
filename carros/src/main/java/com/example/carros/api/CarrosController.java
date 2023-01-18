@@ -24,7 +24,7 @@ public class CarrosController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Carro> get(@PathVariable("id") Long id) {
+    public ResponseEntity get(@PathVariable("id") Long id) {
         return service.getCarroById(id)
                 .map(carro -> ResponseEntity.ok(carro))
                 .orElse(ResponseEntity.notFound().build());
@@ -47,7 +47,7 @@ public class CarrosController {
 
     @PutMapping("/{id}")
     public String put(@PathVariable("id") Long id, @RequestBody Carro carro) {
-        Carro c = service.update(carro, id);
+        CarroDTO c = service.update(carro, id);
 
         return "Carro atualizado com sucesso: " + c.getId();
     }

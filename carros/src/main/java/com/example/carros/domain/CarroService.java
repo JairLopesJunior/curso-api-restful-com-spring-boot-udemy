@@ -30,8 +30,9 @@ public class CarroService {
         );
     }*/
 
-    public Optional<Carro> getCarroById(Long id) {
-        return rep.findById(id);
+    public Optional<CarroDTO> getCarroById(Long id) {
+        return rep.findById(id)
+                .map(CarroDTO::new);
     }
 
     public List<CarroDTO> getCarrosByTipo(String tipo) {
@@ -44,7 +45,7 @@ public class CarroService {
         return rep.save(carro);
     }
 
-    public Carro update(Carro carro, Long id) {
+    public CarroDTO update(Carro carro, Long id) {
         Assert.notNull(id, "Não foi possível atualizar o registro");
 
         return getCarroById(id).map(db -> {

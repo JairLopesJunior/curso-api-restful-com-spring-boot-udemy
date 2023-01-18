@@ -3,6 +3,8 @@ package com.example.carros.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +52,12 @@ public class CarroService {
 
             return db;
         }).orElseThrow(() -> new RuntimeException("Não foi possível atualizar o registro"));
+    }
+
+    public void delete(Long id) {
+        getCarroById(id).ifPresent(carro -> {
+            rep.deleteById(id);
+        });
     }
 }
 

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,8 +30,11 @@ public class CarrosController {
     }
 
     @GetMapping("/tipo/{tipo}")
-    public Iterable<Carro> getCarrosByTipo(@PathVariable("tipo") String tipo) {
-        return service.getCarrosById(tipo);
+    public ResponseEntity getCarrosByTipo(@PathVariable("tipo") String tipo) {
+        List<Carro> carros = service.getCarrosByTipo(tipo);
+        return carros.isEmpty() ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.ok(carros);
     }
 
     @PostMapping

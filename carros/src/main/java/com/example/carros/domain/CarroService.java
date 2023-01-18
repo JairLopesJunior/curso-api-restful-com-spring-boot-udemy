@@ -41,8 +41,8 @@ public class CarroService {
                 .collect(Collectors.toList());
     }
 
-    public Carro save(Carro carro) {
-        return rep.save(carro);
+    public CarroDTO save(Carro carro) {
+        return CarroDTO.create(rep.save(carro));
     }
 
     public CarroDTO update(Carro carro, Long id) {

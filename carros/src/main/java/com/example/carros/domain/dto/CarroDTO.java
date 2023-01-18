@@ -11,11 +11,11 @@ public class CarroDTO {
     private String nome;
     private String tipo;
 
-    public CarroDTO(Carro carro) {
+    /*public CarroDTO(Carro carro) {
         this.id = carro.getId();
         this.nome = carro.getNome();
         this.tipo = carro.getTipo();
-    }
+    }*/
 
     public static CarroDTO create(Carro c) {
         ModelMapper modelMapper = new ModelMapper();

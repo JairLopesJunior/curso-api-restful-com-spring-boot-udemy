@@ -59,10 +59,11 @@ public class CarroService {
         }).orElse(null);
     }
 
-    public void delete(Long id) {
-        getCarroById(id).ifPresent(carro -> {
-            rep.deleteById(id);
-        });
+    public boolean delete(Long id) {
+        if(getCarroById(id).isPresent()) {
+            return true;
+        }
+        return false;
     }
 }
 

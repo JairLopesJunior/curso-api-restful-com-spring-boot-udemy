@@ -63,9 +63,11 @@ public class CarrosController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        service.delete(id);
-        return "Carro deletado com sucesso";
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        boolean isOk = service.delete(id);
+        return isOk ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
     }
 
     private URI getUri(Long id) {

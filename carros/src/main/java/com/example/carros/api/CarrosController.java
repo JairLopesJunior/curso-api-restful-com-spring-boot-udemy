@@ -54,10 +54,12 @@ public class CarrosController {
     }
 
     @PutMapping("/{id}")
-    public String put(@PathVariable("id") Long id, @RequestBody Carro carro) {
+    public ResponseEntity put(@PathVariable("id") Long id, @RequestBody Carro carro) {
         CarroDTO c = service.update(carro, id);
 
-        return "Carro atualizado com sucesso: " + c.getId();
+        return c != null ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

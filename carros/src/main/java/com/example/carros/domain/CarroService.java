@@ -56,7 +56,7 @@ public class CarroService {
             rep.save(carro);
 
             return db;
-        }).orElseThrow(() -> new RuntimeException("Não foi possível atualizar o registro"));
+        }).orElse(null);
     }
 
     public void delete(Long id) {

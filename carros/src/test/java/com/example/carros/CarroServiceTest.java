@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class CarrosApplicationTests {
+class CarroServiceTest {
 
 	@Autowired
 	private CarroService service;

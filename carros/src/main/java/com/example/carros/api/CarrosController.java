@@ -27,9 +27,8 @@ public class CarrosController {
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id) {
-        return service.getCarroById(id)
-                .map(carro -> ResponseEntity.ok(carro))
-                .orElse(ResponseEntity.notFound().build());
+        CarroDTO carroById = service.getCarroById(id);
+        return ResponseEntity.ok(carroById);
     }
 
     @GetMapping("/tipo/{tipo}")

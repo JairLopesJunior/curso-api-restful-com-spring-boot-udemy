@@ -1,12 +1,12 @@
 package com.example.carros.domain;
 
 import com.example.carros.domain.dto.CarroDTO;
+import com.example.carros.domain.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,9 +29,10 @@ public class CarroService {
         );
     }*/
 
-    public Optional<CarroDTO> getCarroById(Long id) {
+    public CarroDTO getCarroById(Long id) {
         return rep.findById(id)
-                .map(CarroDTO::create);
+                .map(CarroDTO::create)
+                .orElseThrow(() -> new ObjectNotFoundException("Carro não encontrado!!"));
     }
 
     public List<CarroDTO> getCarrosByTipo(String tipo) {
@@ -47,7 +48,8 @@ public class CarroService {
     public CarroDTO update(Carro carro, Long id) {
         Assert.notNull(id, "Não foi possível atualizar o registro");
 
-        return getCarroById(id).map(db -> {
+        if(getCarroById(id) != null) {
+            CarroDTO db = new CarroDTO();
             db.setNome(carro.getNome());
             db.setTipo(carro.getTipo());
             System.out.println("Carro id " + db.getId());
@@ -55,11 +57,13 @@ public class CarroService {
             rep.save(carro);
 
             return db;
-        }).orElse(null);
+        } else {
+            return null;
+        }
     }
 
     public boolean delete(Long id) {
-        if(getCarroById(id).isPresent()) {
+        if(getCarroById(id) != null) {
             rep.deleteById(id);
             return true;
         }
